@@ -1,21 +1,6 @@
-// utils/imageAnalyzer.ts
-import * as cocoSsd from '@tensorflow-models/coco-ssd'
-
-export const handleFileChange = (
-  e: React.ChangeEvent<HTMLInputElement>,
-  setFile: React.Dispatch<React.SetStateAction<File | null>>,
-  setImageUrl: React.Dispatch<React.SetStateAction<string | null>>,
-  analyzeImage: (imageUrl: string) => void
-) => {
-  if (e.target.files && e.target.files[0]) {
-    const selectedFile = e.target.files[0]
-    setFile(selectedFile)
-
-    const objectUrl = URL.createObjectURL(selectedFile)
-    setImageUrl(objectUrl)
-    analyzeImage(objectUrl)
-  }
-}
+import * as tf from '@tensorflow/tfjs'
+import '@tensorflow/tfjs-backend-webgl' // Import WebGL backend
+import * as cocoSsd from '@tensorflow-models/coco-ssd' // Import cocoSsd model
 
 export const analyzeImage = async (
   imageUrl: string,
@@ -23,6 +8,10 @@ export const analyzeImage = async (
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   setIsLoading(true)
+
+  // Set WebGL backend
+  await tf.setBackend('webgl')
+  await tf.ready() // Ensure TensorFlow.js is fully loaded
 
   const model = await cocoSsd.load()
 
