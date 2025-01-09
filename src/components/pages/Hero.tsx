@@ -6,13 +6,14 @@ export default function Hero() {
   const [file, setFile] = useState<File | null>(null)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [predictions, setPredictions] = useState<Array<{ class: string; score: number }>>([])
-  const [isLoading, setIsLoading] = useState<boolean>(false) 
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   return (
     <div className="w-full max-w-md mx-auto p-4 mt-12 h-screen bg-primary flex flex-col">
       <label
         htmlFor="file-upload"
         className="relative block w-full h-40 border-2 border-dashed border-purple-300 rounded-2xl cursor-pointer hover:border-purple-400 transition-colors"
+        aria-label="Upload an image"
       >
         <input
           id="file-upload"
@@ -52,7 +53,6 @@ export default function Hero() {
         </div>
       )}
 
-      {/* Loading screen */}
       {isLoading && (
         <div className="mt-8 flex justify-center items-center">
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-white border-solid"></div>
@@ -60,7 +60,6 @@ export default function Hero() {
         </div>
       )}
 
-      {/* Display predictions */}
       {predictions.length > 0 && !isLoading && (
         <div className="mt-8 bg-gray-50 p-4 rounded-md">
           <h3 className="text-xl text-purple-600 mb-4">Predictions:</h3>
