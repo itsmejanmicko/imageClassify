@@ -1,5 +1,5 @@
 import * as tf from '@tensorflow/tfjs'
-import '@tensorflow/tfjs-backend-webgl' // Import WebGL backend
+import '@tensorflow/tfjs-backend-webgl' 
 import * as cocoSsd from '@tensorflow-models/coco-ssd'
 
 export const handleFileChange = (
